@@ -22,6 +22,7 @@ class ModalParent extends Component {
 
 	handleSignInOpen = () => {
 		this.setState({ signInIsShow: true });
+		console.log("react version: " + React.version);
 	}
 
 	handleSignInClose = () => {

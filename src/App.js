@@ -4,6 +4,7 @@ import './App.css';
 import MyCarousel from './MyComponents';
 import MyTable from './MyTable';
 import ModalParent from './modal';
+import SideMenu from './sidemenu';
 
 
 const topics = [
@@ -61,6 +62,9 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <div>
+          <SideMenu />
+        </div>
         <ModalParent />
         <MyTable head_data={tasks_heads} body_data={tasks} />
         <MyTable head_data={topics_heads} body_data={topics} />
