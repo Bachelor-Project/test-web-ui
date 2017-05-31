@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ka">
+	<head>
+		<title>თემები</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	  	<!-- bootstrap -->
+	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	  	<!-- local files -->
+	  	<script type="text/javascript" src="./js/topics.js"></script>
+	  	<link rel="stylesheet" type="text/css" href="./css/topics.css">
+	</head>
+	<body>
+		<div class="container">
+			<form>
+				<input id="search" type="text" placeholder="თემის სახელი..." >
+			</form>
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>N</th>
+						<th>დასახელება</th>
+						<th>აღწერა</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td><a href="topics_concrete.html">გრაფი</a></td>
+						<td>თემაში განხილულია გრაფის თავისებურებები, ტიპები და ალგორითმები მათი აღწერისათვის.</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td><a href="topics_concrete.html">გეომეტრია</a></td>
+						<td>თემაში განხილულია გეომეტრიის საწყისები, ძველი ბერძნული და ეგვიპტური მიღწევები. ევკლიდეს 5 პრინციპი თქვენ გულგრილს ვერ დაქტოვებთ.</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<script type="text/javascript" >
+			function search_topic(field){
+				console.log("The name of tipic: " + field.value);
+			}
+		</script>
+	</body>
+</html>
