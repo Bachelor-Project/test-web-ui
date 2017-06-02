@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Header from './Header';
 import RouterMain from './Main';
 import SideMenu from '../sidemenu';
 
