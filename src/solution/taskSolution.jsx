@@ -103,7 +103,7 @@ function TaskContent(props) {
 	);
 }
 
-const solTabs = [
+const solutionTabs = [
 	{
 		title: "ამოხსნა",
 		content: "ამოხსნა ბლა ბლა ბლა"
@@ -177,7 +177,7 @@ class WriteSolution extends Component {
 				</div>
 				<div className="container" style={{position: 'absolute', right: '0px', top: '54px', width: '84%'}}>
 					<TabContainer id={taskDataTabID} tabs={taskTabs} />
-					<TabContainer id={solutionDataTabID} tabs={solTabs} />
+					<TabContainer id={solutionDataTabID} tabs={solutionTabs} />
 					<Hinter id={hinterID} hinters={hinters} />
 				</div>
 			</div>
