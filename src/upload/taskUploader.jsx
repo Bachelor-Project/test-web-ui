@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Modal, Button, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
+import {Button, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
 import CustomUploadModal from './customModal';
 import {FieldGroup, Selector} from './customFields';
 

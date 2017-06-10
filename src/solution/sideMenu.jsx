@@ -1,16 +1,13 @@
 import React, {Component} from 'react';
 import MetisMenu from 'react-metismenu';
-
+import './sideMenu_style.css';
 
 class SideMenu extends Component {
 
-	constructor(props) {
-		super(props);
-	}
 
 	render() {
 		return (
-			<MetisMenu content={this.props.content}/>
+			<MetisMenu  content={this.props.content} />
 		);
 	}
 }

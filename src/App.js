@@ -5,48 +5,8 @@ import {BrowserRouter} from 'react-router-dom';
 import MyRouter from './router/router';
 import MyMedia from './comment/media';
 import Analyzator from './comment/taskAnalizator';
- 
-
-const topics = [
-      {
-        name: "გრაფი",
-        descrip: "აქ ნახავთ თეორიას გრაფის შესახებ",
-        number: 10
-      },
-      {
-        name: "გეომეტრია",
-        descrip: "აქ ნახავთ თეორიას გეომეტრიის შესახებ",
-        number: 25
-      },
-      {
-        name: "ალგებრა",
-        descrip: "აქ ნახავთ თეორიას ალგებრის შესახებ",
-        number: 20
-      }
-]
-
-const topics_heads = ["N", "დასახელება", "აღწერა", "რაოდენობა"];
 
 
-const tasks = [
-      {
-        name: "გრაფი",
-        descrip: "აქ ნახავთ ამოცანებს გრაფის შესახებ",
-        number: 20
-      },
-      {
-        name: "გეომეტრია",
-        descrip: "აქ ნახავთ ამოცანებს გეომეტრიის შესახებ",
-        number: 35
-      },
-      {
-        name: "ალგებრა",
-        descrip: "აქ ნახავთ ამოცანებს ალგებრის შესახებ",
-        number: 30
-      }
-]
-
-const tasks_heads = ["N", "ამოცანის თემა", "აღწერა", "რაოდენობა"];
 
 
 class App extends Component {
