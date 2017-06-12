@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Modal, Button} from 'react-bootstrap';
 import {FormGroup, ControlLabel, FormControl, HelpBlock, InputGroup} from 'react-bootstrap';
+import $ from 'jquery';
 
 
 class ModalParent extends Component {
@@ -73,6 +74,11 @@ function FieldGroup ({id, validState, label, help, feedback, ...props}) {
 
 /* ---------------- Sign in modal ---------------- */
 
+const signIntOb = {
+	username: 'bla',
+	password: 'blu'
+}
+
 class SignInModal extends Component {
 
 	constructor(props) {
@@ -85,8 +91,21 @@ class SignInModal extends Component {
 	}
 
 	onSignInClick = () => {
-		alert("Sign in");
 		this.setState({ isInputIncorrect: true });
+		$.ajax({
+			url: '/bp-SignIn/app/',
+			method: 'post',
+			headers: {'Authentication': 'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJ1c2VyIl0sImlzcyI6Imlzc3VlciIsImlkIjowLCJleHAiOjE0OTk3NzYwNDUsInVzZXJuYW1lIjoiYmxhIn0.__ZbT9z4_6qNr-8o4bNIyfzN_-T86tdwy-p7gRmnGyU'},
+			contentType: "application/json; charset=utf-8",
+			data: JSON.stringify(signIntOb)
+		})
+		.then(function(response){
+			window.localStorage.setItem("token", response);
+			console.log(window.localStorage.getItem("token"));
+		})
+		.catch(function(error){
+			alert("error");
+		});
 	}
 
 	render () {
@@ -125,6 +144,11 @@ class IncorrectInputs extends Component {
 
 
 
+const ob = {
+	username: "bla",
+	password: "blu",
+	email: "rame@ge.ge"
+}
 
 
 /* ---------------- Sign up modal ---------------- */
@@ -138,7 +162,19 @@ class SignUpModal extends Component {
 	}
 
 	onSignUpClick = () => {
-		alert("Sign up");
+		// alert("Sign up");
+		$.ajax({
+			url: '/bp-SignIn/app/signup',
+			method: 'post',
+			contentType: "application/json; charset=utf-8",
+			data: JSON.stringify(ob)
+		})
+		.then(function(response){
+			console.log(response);
+		})
+		.catch(function(error){
+			alert("error");
+		});
 	}
 
 	render (){

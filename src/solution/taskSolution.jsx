@@ -4,6 +4,7 @@ import SideMenu from './sideMenu';
 import TabContainer from './tabContainer';
 import Hinter from './hinter';
 import TestsComponent from './testsComponent';
+import Solution from './Solution';
 
 
 const SideContent = [
@@ -52,6 +53,21 @@ const tests = [
 		name: '03',
 		input: '5 5 2 1000\n1 1 1\n4 4 3',
 		output: '1 1 1\n4 4 3'
+	},
+	{
+		name: '04',
+		input: '5 5 2 1000\n1 1 1\n4 4 3',
+		output: '1 1 1\n4 4 3'
+	},
+	{
+		name: '05',
+		input: '5 5 2 1000\n1 1 1\n4 4 3',
+		output: '1 1 1\n4 4 3'
+	},
+	{
+		name: '06',
+		input: '5 5 2 1000\n1 1 1\n4 4 3',
+		output: '1 1 1\n4 4 3'
 	}
 ];
 
@@ -77,7 +93,34 @@ const taskContentText = ("ამოცანა B. ლამაზი მწკ�
 		"განმარტება:\n" +
 		"მაგალითში 5 = 123 და 1 = 13, 5 = 1012 და 6 = 1102, ამიტომ არსებობს ორი მიმდევრობა: 1, 5, 6 და 6, 5, 1. \n" +
 		"ტესტების 25%–სათვის  N <= 4.\n" +
-		"ტესტების 50%–სათვის N <= 10\n");
+		"ტესტების 50%–სათვის N <= 10\n"
+);
+
+const languages = [
+	{
+		id: 1,
+		name: "Java",
+		descrip: "Java 1.8",
+		code: "\npublic class Solution {\n\n" + 
+					"\tpublic static void main(String[] args){\n\n" + 
+						"\t}\n" +
+				"}\n"
+	},
+	{
+		id: 2,
+		name: "Python",
+		descrip: "Python 2.7",
+		code: "\nif __name__==\"__main__\":\n\n"
+	},
+	{
+		id: 3,
+		name: "c_cpp",
+		descrip: "GNU C++",
+		code: "\nint main() {\n\n" +
+					"\treturn 0;\n" + 
+				"}\n"
+	}
+];
 
 const taskTabs = [
 	{
@@ -106,7 +149,7 @@ function TaskContent(props) {
 const solutionTabs = [
 	{
 		title: "ამოხსნა",
-		content: "ამოხსნა ბლა ბლა ბლა"
+		content: <Solution taskLanguages={languages} />
 	},
 	{
 		title: "ანალიზი",
@@ -151,7 +194,9 @@ class WriteSolution extends Component {
 		super(props);
 
 		this.state = {
-			headerTarget: taskDataTabID
+			headerTarget: taskDataTabID,
+
+			selectedTestsNames: []
 		}
 	}
 
@@ -166,6 +211,37 @@ class WriteSolution extends Component {
 	handleHinter = () => {
 		this.setState({ headerTarget: hinterID });
 	}
+
+
+	handleAllTestsSelectValue = (tests) => {
+		if (tests.length === 0) {
+			this.setState({ selectedTestsNames: [] });
+		}
+		else {
+			this.setState({ selectedTestsNames: tests });
+		}
+	}
+
+	handleConcreteTestSelectValue = (checked, testName) => {
+		var tests = [];
+		if (checked) {
+			// copy old tests names:
+			this.state.selectedTestsNames.forEach((name) => {
+				tests.push(name);
+			});
+			// add new test name:
+			tests.push(testName);
+		}
+		else {
+			tests = this.state.selectedTestsNames.filter((name) => {
+				return name !== testName;
+			});
+		}
+
+		// update state:
+		this.setState({ selectedTestsNames: tests });
+	}
+
 
 	render() {
 		return (

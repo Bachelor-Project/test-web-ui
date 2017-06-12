@@ -52,21 +52,23 @@ class TestsComponent extends Component {
 		}
 
 		return (
-			<Table responsive>
-				<thead>
-					<tr>
-						<th>
-							<Checkbox onClick={this.onAllTestClick} checked={this.state.selectedAllTest} ></Checkbox>
-						</th>
-						<th>ტესტი</th>
-						<th>Input</th>
-						<th>Output</th>
-					</tr>
-				</thead>
-				<tbody>
-					{testElements}
-				</tbody>
-			</Table>
+			<div style={{overflow: 'auto', maxHeight: '200px', }} >
+				<Table responsive >
+					<thead>
+						<tr>
+							<th>
+								<Checkbox onClick={this.onAllTestClick} checked={this.state.selectedAllTest} ></Checkbox>
+							</th>
+							<th>ტესტი</th>
+							<th>Input</th>
+							<th>Output</th>
+						</tr>
+					</thead>
+					<tbody>
+						{testElements}
+					</tbody>
+				</Table>
+			</div>
 		);
 	}
 }
@@ -87,8 +89,6 @@ class TestElement extends Component {
 
 	onTestClick = (event) => {
 		this.setState({ isSelected : event.target.checked });
-
-		alert(this.state.isSelected);
 		this.props.onValueChange(event.target.checked);
 
 		// this.setState((prevState, props) => ({
@@ -109,16 +109,19 @@ class TestElement extends Component {
 	}
 
 	render() {
-		console.log(this.props.changeByAnyChild);
-		var value = this.props.changeByAnyChild ? this.state.isSelected
-												: this.props.selectedAll && !this.state.isDisabled;
+		// console.log(this.props.changeByAnyChild);
+		if (!this.props.changeByAnyChild){
+			this.setState({ isSelected: this.props.selectedAll && !this.state.isDisabled });
+		}
+		// var value = this.props.changeByAnyChild ? this.state.isSelected
+		// 										: this.props.selectedAll && !this.state.isDisabled;
 
 		const inputs = this.getSlices('\n', this.props.data.input);
 		const outputs = this.getSlices('\n', this.props.data.output);
 
 		return (
 			<tr>
-				<td><Checkbox disabled={this.state.isDisabled} onClick={this.onTestClick} checked={value} ></Checkbox></td>
+				<td><Checkbox disabled={this.state.isDisabled} onClick={this.onTestClick} checked={this.state.isSelected} ></Checkbox></td>
 				<td>
 					{this.props.data.name}
 					<Button onClick={this.onTestDisable}>click</Button>
