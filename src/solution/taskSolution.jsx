@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import HeaderNavBar from './headerNavBar';
 import SideMenu from './sideMenu';
-import TabContainer from './tabContainer';
+import ControlledTabs from './controlledTabs';
 import Hinter from './hinter';
 import TestsComponent from './testsComponent';
 import Solution from './Solution';
+import Analyzator from '../comment/taskAnalizator';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+
 
 
 const SideContent = [
@@ -124,14 +127,27 @@ const languages = [
 
 const taskTabs = [
 	{
+		id: 1,
+		htmlID: "conditionTab",
 		title: "პირობა",
 		content: <TaskContent text={taskContentText} />
 	},
 	{
+		id: 2,
+		htmlID: "testsTab",
 		title: "ტესტები",
-		content: <TestsComponent tests={tests} />
+		content: 	<BootstrapTable data={tests} striped={true} hover={true}>
+						<TableHeaderColumn dataField="name" isKey={true} dataAlign="center" dataSort={true}>ტესტი</TableHeaderColumn>
+						<TableHeaderColumn dataField="input" dataSort={true} dataAlign="center">input</TableHeaderColumn>
+						<TableHeaderColumn dataField="output" dataAlign="center">output</TableHeaderColumn>
+				  	</BootstrapTable>
+		
 	}
 ];
+
+
+// <TestsComponent tests={tests} />
+
 
 function TaskContent(props) {
 	var entries = [];
@@ -146,14 +162,36 @@ function TaskContent(props) {
 	);
 }
 
+const res = {
+	panelStyle: "success",
+	textareaStyle: "success"
+}
+
 const solutionTabs = [
 	{
+		id: 1,
+		htmlID: "solutionTab",
 		title: "ამოხსნა",
-		content: <Solution taskLanguages={languages} />
+		content: <Solution taskLanguages={languages} result={res} />
 	},
 	{
+		id: 2,
+		htmlID: "analyzeTab",
 		title: "ანალიზი",
-		content: "ანალიზი ბლა ბლა ბლა"
+		content: <Analyzator taskComments={comments} />
+	}
+];
+
+const comments = [
+	{
+		id: 1,
+		username: "Bob",
+		text: "ბომბა ამოცანა იყო"
+	},
+	{
+		id: 2,
+		username: "Alice",
+		text: "კაი ერთი"
 	}
 ];
 
@@ -248,12 +286,10 @@ class WriteSolution extends Component {
 			<div style={{position: 'relative'}}>
 				<HeaderNavBar target={this.state.headerTarget} onConditionClick={this.handleCondition}
 									onSolutionClick={this.handleSolution} onHinterClick={this.handleHinter} />
-				<div style={{position: 'fixed', left: '0px', top: '8%', width: '16%'}} >
-					<SideMenu content={SideContent} />
-				</div>
+				
 				<div className="container" style={{position: 'absolute', right: '0px', top: '54px', width: '84%'}}>
-					<TabContainer id={taskDataTabID} tabs={taskTabs} />
-					<TabContainer id={solutionDataTabID} tabs={solutionTabs} />
+					<ControlledTabs id={taskDataTabID} tabs={taskTabs} />
+					<ControlledTabs id={solutionDataTabID} tabs={solutionTabs} />
 					<Hinter id={hinterID} hinters={hinters} />
 				</div>
 			</div>
@@ -266,3 +302,17 @@ export default WriteSolution;
 const taskDataTabID = "uncontrolled-taskData";
 const solutionDataTabID = "uncontrolled-solutoinData";
 const hinterID = "hinter";
+
+{/*
+
+	<TabContainer id={solutionDataTabID} tabs={solutionTabs} />
+
+	<HeaderNavBar target={this.state.headerTarget} onConditionClick={this.handleCondition}
+									onSolutionClick={this.handleSolution} onHinterClick={this.handleHinter} />
+				<div style={{position: 'fixed', left: '0px', top: '8%', width: '16%'}} >
+					<SideMenu content={SideContent} />
+				</div>
+
+				<TabContainer id={taskDataTabID} tabs={taskTabs} />
+
+*/}

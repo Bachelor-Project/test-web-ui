@@ -7,7 +7,7 @@ class TabContainer extends Component {
 	render (){
 		var tabElements = [];
 		this.props.tabs.forEach( function(tab, i) {
-			tabElements.push(<Tab eventKey={i+1} key={i} id={i} title={tab.title}>{tab.content}</Tab>);
+			tabElements.push(<Tab eventKey={i+1} key={i} id={tab.htmlID} title={tab.title}>{tab.content}</Tab>);
 		});
 
 		return (

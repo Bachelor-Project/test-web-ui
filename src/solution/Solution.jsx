@@ -69,7 +69,7 @@ class Solution extends Component {
 						<Button onClick={this.onCompileClick} style={{margin: "8px"}}>{labels.compileButton}</Button>
 						<Button onClick={this.onRunClick} style={{margin: "8px"}}>{labels.runButton}</Button>
 						<FormGroup style={{width: "30%"}} controlId="solutionLangsSelected" >
-							<FormControl eventKey={1} componentClass="select" placeholder={labels.language} onChange={this.onLanguageChange} >
+							<FormControl componentClass="select" placeholder={labels.language} onChange={this.onLanguageChange} >
 								{languages}
 							</FormControl>
 						</FormGroup>
@@ -84,8 +84,8 @@ class Solution extends Component {
 					    value={this.state.editorValue}
 					/>
 				</div>
-				<Panel header={labels.resultPanelHeader} >
-					<FormGroup controlId="solutionResultGroup" validationState="success" >
+				<Panel header={labels.resultPanelHeader} bsStyle={this.props.result.panelStyle} >
+					<FormGroup controlId="solutionResultGroup" validationState={this.props.result.textareaStyle} >
 				    	<FormControl componentClass="textarea" />
 				    </FormGroup>
 				</Panel>

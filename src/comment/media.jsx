@@ -6,15 +6,15 @@ class MyMedia extends Component {
 
 	render (){
 		return (
-			<Media>
+			<Media.ListItem>
 				<Media.Left>
-					<Image width={64} height={64} src="/images/profile/account3.jpg" circle />
+					<Image width={64} height={64} src={this.props.imgURL} circle />
 				</Media.Left>
 				<Media.Body>
 					<Media.Heading>{this.props.username}</Media.Heading>
-					<p>{this.props.text}</p>
+					{this.props.text}
 				</Media.Body>
-			</Media>
+			</Media.ListItem>
 		);
 	}
 }

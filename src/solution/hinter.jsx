@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {Button, Panel} from 'react-bootstrap';
 import TabContainer from './tabContainer';
+import ControlledTabs from './controlledTabs';
 
 
 // labels:
 const HinterPanelTitle = (<h3>მითითება</h3>);
+const hinterTabContainerID = "controlled-hintersTab";
 
 
 class Hinter extends Component {
@@ -16,6 +18,7 @@ class Hinter extends Component {
 		if (this.props.hinters !== undefined) {
 			this.props.hinters.forEach( function(hinter, i) {
 				if (hinter.code) {
+					hinter.htmlID = "codeTab" + hinter.title;
 					tabs.push(hinter);
 				}
 				else {
@@ -29,7 +32,8 @@ class Hinter extends Component {
 					{hinterElements}
 				</div>
 				<div>
-					{tabs.length > 0 && <TabContainer tabs={tabs} />}
+					{ /* {tabs.length > 0 && <TabContainer tabs={tabs} id={hinterTabContainerID} />} */}
+					{tabs.length > 0 && <ControlledTabs tabs={tabs} id={hinterTabContainerID} />}
 				</div>
 			</Panel>
 		);
