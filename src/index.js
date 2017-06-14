@@ -8,8 +8,8 @@ import ModalParent from './modal';
 import TaskUploadTester from './upload/taskUploader';
 
 
-/* ReactDOM.render(<App />, document.getElementById('root')); */
+ ReactDOM.render(<App />, document.getElementById('root')); 
 
-ReactDOM.render(<WriteSolution />, document.getElementById('root'));
+// ReactDOM.render(<WriteSolution />, document.getElementById('root'));
 // ReactDOM.render(<TaskUploadTester />, document.getElementById('root'));
 registerServiceWorker();
