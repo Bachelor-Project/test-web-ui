@@ -58,12 +58,25 @@ class ModalParent extends Component {
 export default ModalParent;
 
 
-
+// Helper FieldGroup components:
 function FieldGroup ({id, validState, label, help, feedback, ...props}) {
 	return (
 		<FormGroup controlId={id} validationState={validState}>
 			{label && <ControlLabel>{label}</ControlLabel>}
 			<FormControl {...props} />
+			{help && <HelpBlock>{help}</HelpBlock>}
+			{feedback && <FormControl.Feedback />}
+		</FormGroup>
+	);
+}
+
+function FieldGroupWithAddon ({id, validState, addonSymbol, help, feedback, ...props}) {
+	return (
+		<FormGroup controlId={id} validationState={validState}>
+			<InputGroup>
+				<InputGroup.Addon>{addonSymbol}</InputGroup.Addon>
+				<FormControl {...props} />
+			</InputGroup>
 			{help && <HelpBlock>{help}</HelpBlock>}
 			{feedback && <FormControl.Feedback />}
 		</FormGroup>
@@ -143,6 +156,7 @@ class IncorrectInputs extends Component {
 }
 
 
+/* ---------------- Sign up modal ---------------- */
 
 const ob = {
 	username: "bla",
@@ -151,18 +165,23 @@ const ob = {
 }
 
 
-/* ---------------- Sign up modal ---------------- */
-
 class SignUpModal extends Component {
 
 	constructor(props){
 		super(props);
 
-		
+		this.state = {
+			usernameVlidState: 'default',
+			usernameHelpText: null,
+			usernameFeedback: false,
+
+			emailValidState: 'default',
+			emailHelpText: null,
+			emailFeedback: false
+		}
 	}
 
 	onSignUpClick = () => {
-		// alert("Sign up");
 		$.ajax({
 			url: '/bp-SignIn/app/signup',
 			method: 'post',
@@ -185,9 +204,13 @@ class SignUpModal extends Component {
 				</Modal.Header>
 				<Modal.Body>
 					<form>
-						<UsernameComponent /> {/* help="უკვე არსებობს" validState="error" */}
+						<FieldGroup id="reg-username" validState={this.state.usernameVlidState} 
+									help={this.state.usernameHelpText} feedback={this.state.usernameFeedback}
+									type="text" placeholder="username" />
 						<PasswordComponent />
-						<EmailComponent />
+						<FieldGroupWithAddon id="reg-email" validState={this.state.emailValidState} 
+											addonSymbol="@" help={this.state.emailHelpText} feedback={this.state.emailFeedback}
+											type="text" />
 					</form>
 				</Modal.Body>
 				<Modal.Footer>
@@ -195,45 +218,6 @@ class SignUpModal extends Component {
 					<Button bsStyle="success" onClick={this.onSignUpClick}>Sign up</Button>
 				</Modal.Footer>
 	        </Modal>
-		);
-	}
-}
-
-
-class UsernameComponent extends Component {
-
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			nameValue: '',
-			surnameValue: ''
-		}
-
-		this.onNameChange = this.onNameChange.bind(this);
-		this.onSurnameChange = this.onSurnameChange.bind(this);
-	}
-
-	onNameChange(event) {
-		this.setState({ nameValue: event.target.value });
-	}
-
-	onSurnameChange(event) {
-		this.setState({ surnameValue: event.target.value });
-	}
-
-
-	render (){
-		return (
-			<div>
-				<FieldGroup id="name" label="სახელი" type="text" onChange={this.onNameChange} />
-				<FieldGroup id="surname" label="გვარი" type="text" onChange={this.onSurnameChange} />
-
-				<FieldGroup id="username" validState={this.props.validState} 
-							label="username" 
-							type="text" value={this.state.nameValue + ' ' + this.state.surnameValue} disabled 
-							help={this.props.help} feedback={true} />
-			</div>
 		);
 	}
 }
@@ -250,21 +234,6 @@ class PasswordComponent extends Component {
 				<FieldGroup id="confirmPassword" validState={this.props.validState}
 							placeholder="გაიმეორეთ პაროლი" help={this.props.help} feedback={true} type="password" />
 			</div>
-		);
-	}
-}
-
-class EmailComponent extends Component {
-	render (){
-		return (
-			<FormGroup controlId="email" validState={this.props.validState} >
-				<InputGroup>
-					<InputGroup.Addon>@</InputGroup.Addon>
-					<FormControl type="text" />
-				</InputGroup>
-				{this.props.help && <HelpBlock>{this.props.help}</HelpBlock>}
-				<FormControl.Feedback />
-			</FormGroup>
 		);
 	}
 }
