@@ -27,19 +27,19 @@ class Analyzator extends Component {
 		const url = "https://lh3.googleusercontent.com/X-e8ol99z-1kGJ_EmqqfN-nqDvNMKiTEUlIWtGk-L4NxkVX3-8qThkVJKaUgF5iJFA=w300";
 		var listItems = [];
 
-		// this.props.taskComments.forEach( function(elem) {
-		// 	listItems.push(
-		// 				<Media.ListItem key={elem.id} >
-		// 									<Media.Left>
-		// 										<Image width={64} height={64} src={url} circle />
-		// 									</Media.Left>
-		// 									<Media.Body>
-		// 										<Media.Heading>{elem.username}</Media.Heading>
-		// 										{elem.text}
-		// 									</Media.Body>
-		// 								</Media.ListItem>
-		// 		);
-		// });
+		this.props.taskComments.forEach( function(elem) {
+			listItems.push(
+						<Media.ListItem key={elem.id} >
+											<Media.Left>
+												<Image width={64} height={64} src={url} circle />
+											</Media.Left>
+											<Media.Body>
+												<Media.Heading>{elem.username}</Media.Heading>
+												{elem.text}
+											</Media.Body>
+										</Media.ListItem>
+				);
+		});
 		return (
 			<div style={{position: 'relative', display: 'inline'}} >
 				<div >
