@@ -15,8 +15,8 @@ class TopicUploader extends Component {
 			<form>
 				<FieldGroup id="name" type="text" placeholder="თემის დასახელება" />
 				<FieldGroup id="file" label="აირჩიეთ თემის ფაილი" type="file" />
-				<FieldGroup id="type" type="text" placeholder="ტიპი" />
 				<Selector title="მთავარი თემა" selectorData={topics} isMultiple={false} searchable={true} />
+				<FieldGroup id="type" type="text" placeholder="ტიპი" />
 				<FieldGroup id="priority" type="number" placeholder="პრიორიტეტი" />
 			</form>
 		);
