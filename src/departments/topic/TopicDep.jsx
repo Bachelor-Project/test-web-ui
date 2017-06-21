@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import { slide as Menu } from 'react-burger-menu'
 import {Treebeard} from 'react-treebeard';
 import {Button} from 'react-bootstrap';
-
+import $ from 'jquery';
 
 
 
@@ -53,12 +53,14 @@ class TopicDep extends Component {
         this.state = {
         	topicTitle: 'bla',
         	topicId: 1,
-        	topicContent: 'content of topic'
+        	topicContent: 'content of topic',
+
+        	bookmarkedId: 0
         };
         this.onToggle = this.onToggle.bind(this);
 	}
 
-	onToggle(node, toggled){
+	onToggle = (node, toggled) => {
         if(this.state.cursor){this.state.cursor.active = false;}
         node.active = true;
         if(node.children){ node.toggled = toggled; }
@@ -93,6 +95,18 @@ class TopicHeader extends Component {
 
 	onBookmarkClick = () => {
 		alert('user: ' + 'vinme' + ' topic_id: ' + this.props.topicId);
+
+		var data = new FormData();
+		data.append('user', window.localStorage.algoUser);
+		data.append('topic', this.state.topicId);
+		// $.ajax({
+		// 	url: '/apigatway/to/users/api/bookmark',
+		// 	type: 'POST',
+		// 	data: data,
+		// 	contentType: 'json'
+		// });
+
+		this.setState({ bookmarkedId: this.state.topicId });
 	}
 
 	onDownloadClick = () => {

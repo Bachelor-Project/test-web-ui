@@ -1,14 +1,17 @@
+import './TaskDepStyle.css';
+
 import React, {Component} from 'react';
-import HeaderNavBar from './headerNavBar';
-import SideMenu from './sideMenu';
-import ControlledTabs from './controlledTabs';
-import Hinter from './hinter';
-import TaskTests from '../departments/task/tests';
-import TaskSolution from '../departments/task/solution';
-import TaskAnalyzer from '../departments//task/analyse';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import {slide as Menu} from 'react-burger-menu';
+import {Treebeard} from 'react-treebeard';
+
+import TaskTests from './tests';
+import TaskSolution from './solution';
+import TaskAnalyzer from './analyse';
+import ControlledTabs from './ControlledTabs';
+import Hinter from './hint';
 
 
+// -----------------------------------  Start Variables -----------------------------------
 
 const SideContent = [
 	{
@@ -141,14 +144,6 @@ const taskTabs = [
 	}
 ];
 
-// <BootstrapTable data={tests} striped={true} hover={true}>
-// 	<TableHeaderColumn dataField="name" isKey={true} dataAlign="center" dataSort={true}>ტესტი</TableHeaderColumn>
-// 	<TableHeaderColumn dataField="input" dataSort={true} dataAlign="center">input</TableHeaderColumn>
-// 	<TableHeaderColumn dataField="output" dataAlign="center">output</TableHeaderColumn>
-// </BootstrapTable>
-
-// <TestsComponent tests={tests} />
-
 
 function TaskContent(props) {
 	var entries = [];
@@ -212,69 +207,137 @@ const hinters = [
 ];
 
 
+const taskDataTabID = "uncontrolled-taskData";
+const solutionDataTabID = "uncontrolled-solutoinData";
+const hinterID = "hinter";
+
+
+// -----------------------------------  End Variables -----------------------------------
+
+
+export class ToggleMenu extends Component {
+
+	constructor(props) {
+		super(props);
+
+		this.state = {}
+	}
+
+	onToggle = (node, toggled) => {
+        if(this.state.cursor){this.state.cursor.active = false;}
+        node.active = true;
+        if(node.children){ node.toggled = toggled; }
+
+        this.setState({ cursor: node });
+        if (node.id){
+	        this.props.nodeChangeHandler(node);
+        }
+    }
+
+	render() {
+		return (
+			<Menu width={ '16%' } >
+			        <Treebeard 
+		                data={this.props.treeData}
+		                onToggle={this.onToggle}
+		            />
+			</Menu>
+		);
+	}
+}
+
+
+const treeData = {
+	name: 'გრაფი',
+	toggled: true,
+	children: 	[
+					{
+						name: 'მარტივი',
+						toggled: true,
+						children: 	[
+										{
+											id: 1,
+											name: 'ამოცანა 1.1'
+										},
+										{
+											id: 2,
+											name: 'ამოცანა 1.2'
+										}
+									]
+					},
+					{
+						name: 'საშუალო',
+						toggled: false,
+						children: 	[
+										{
+											id: 3,
+											name: 'ამოცანა 2.1',
+										},
+										{
+											id: 4,
+											name: 'ამოცანა 2.2'
+										}
+									]
+					},
+					{
+						name: 'რთული',
+						toggled: false,
+						children: 	[
+										{
+											id: 5,
+											name: 'ამოცანა 3.1',
+										},
+										{
+											id: 6,
+											name: 'ამოცანა 3.2'
+										}
+									]
+					}
+				]
+}
 
 
 
-class WriteSolution extends Component {
+class TaskDep extends Component {
 
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			headerTarget: taskDataTabID,
+			// selectedTestsNames: [],
 
-			selectedTestsNames: []
+			taskId: 0,
+			taskContent: 'Task Content'
 		}
 	}
 
+	// Navigatoin task parts:
 	handleCondition = () => {
 		this.setState({ headerTarget: taskDataTabID });
 	}
-
 	handleSolution = () => {
 		this.setState({ headerTarget: solutionDataTabID });
 	}
-
 	handleHinter = () => {
 		this.setState({ headerTarget: hinterID });
 	}
 
 
-	handleAllTestsSelectValue = (tests) => {
-		if (tests.length === 0) {
-			this.setState({ selectedTestsNames: [] });
-		}
-		else {
-			this.setState({ selectedTestsNames: tests });
-		}
-	}
+	// Change task from left menu:
+	handleTaskChange = (node) => {
+		// gadmovwerot node.id-is mqone amocana pirobit, testebit, mititebit  +++++++++++++++++++++++++++++++++
 
-	handleConcreteTestSelectValue = (checked, testName) => {
-		var tests = [];
-		if (checked) {
-			// copy old tests names:
-			this.state.selectedTestsNames.forEach((name) => {
-				tests.push(name);
-			});
-			// add new test name:
-			tests.push(testName);
-		}
-		else {
-			tests = this.state.selectedTestsNames.filter((name) => {
-				return name !== testName;
-			});
-		}
-
-		// update state:
-		this.setState({ selectedTestsNames: tests });
+		alert("გადმოსაწერია ამოცანა id-ით " + node.id + " პირობით, ტესტებით, მითითებებით და ყველაფრით ");
+		this.setState({ taskId: node.id, taskContent: 'task content of ' + node.name });
 	}
 
 
-	render() {
+	render (){
 		return (
 			<div style={{position: 'relative'}}>
-				<HeaderNavBar target={this.state.headerTarget} onConditionClick={this.handleCondition}
-									onSolutionClick={this.handleSolution} onHinterClick={this.handleHinter} />
+				<ToggleMenu treeData={treeData} nodeChangeHandler={this.handleTaskChange} />
+				
 				
 				<div className="container" style={{position: 'absolute', right: '0px', top: '54px', width: '84%'}}>
 					<ControlledTabs id={taskDataTabID} tabs={taskTabs} />
@@ -286,22 +349,8 @@ class WriteSolution extends Component {
 	}
 }
 
-export default WriteSolution;
+export default TaskDep;
 
-const taskDataTabID = "uncontrolled-taskData";
-const solutionDataTabID = "uncontrolled-solutoinData";
-const hinterID = "hinter";
 
-{/*
-
-	<TabContainer id={solutionDataTabID} tabs={solutionTabs} />
-
-	<HeaderNavBar target={this.state.headerTarget} onConditionClick={this.handleCondition}
-									onSolutionClick={this.handleSolution} onHinterClick={this.handleHinter} />
-				<div style={{position: 'fixed', left: '0px', top: '8%', width: '16%'}} >
-					<SideMenu content={SideContent} />
-				</div>
-
-				<TabContainer id={taskDataTabID} tabs={taskTabs} />
-
-*/}
+// <HeaderNavBar target={this.state.headerTarget} onConditionClick={this.handleCondition}
+// 									onSolutionClick={this.handleSolution} onHinterClick={this.handleHinter} />

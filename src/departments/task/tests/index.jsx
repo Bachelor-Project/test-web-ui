@@ -3,7 +3,7 @@ import {Table, Checkbox, Button} from 'react-bootstrap';
 
 
 
-class TestsComponent extends Component {
+class TaskTests extends Component {
 
 	constructor(props) {
 		super(props);
@@ -110,7 +110,7 @@ class TestsComponent extends Component {
 	}
 }
 
-export default TestsComponent;
+export default TaskTests;
 
 
 class TestElement extends Component {
